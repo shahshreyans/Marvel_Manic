@@ -1,0 +1,71 @@
+<?php
+session_start();
+include ("functions.php");
+$servername = "localhost";
+$username = "root";
+$password = "Shreyans@123";
+$dbname = "shreyansdb";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+ if($_SERVER['REQUEST_METHOD'] == "POST")
+ {
+   $user_name = trim($_POST['un']);
+   $password = trim($_POST['ps']);
+
+   if(!empty($user_name) && !empty($password))
+   {
+        //Read from  database
+        $query2 = "select * from Users where Username = '$user_name' limit 1";
+        $result = mysqli_query($conn,$query2);
+       if($result)
+       {
+          if($result && mysqli_num_rows($result) > 0)
+          {
+             $user_data = mysqli_fetch_assoc($result);
+             if($user_data['Password'] === $password)
+             {
+               $_SESSION['User_Id'] = $user_data['User_Id'];
+               header('Location: index.php');
+                die;
+             }
+             else
+             {
+                echo "<script>alert('Please Enter valid information')</script>";
+
+             }
+          }
+
+        }
+     }
+  }
+
+
+
+?>
+
+
+<html>
+<head>
+<title>Login</title>
+<body>
+<div style="text-align:center">
+<div style="background-color:black"">
+<h1 style="color:red">Marvel Manic</h1>
+<h2 style="color:red">Login </h3>
+</div>
+ <form method="post">
+    Username<input type="text" name="un" >
+    <br><br>
+    Password<input type="password" name="ps">
+ <br><br>
+    <input type="submit" value="submit">
+    </form>
+
+    Don't Have an Account? <a href="registration.php">SignUp</a>
+</div>
+  </body>
+
+</head>
+</html>

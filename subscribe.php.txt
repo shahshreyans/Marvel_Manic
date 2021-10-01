@@ -1,0 +1,53 @@
+<?php
+session_start();
+include ("functions.php");
+$servername = "localhost";
+$username = "root";
+$password = "Shreyans@123";
+$dbname = "shreyansdb";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+   $movieid =$_GET['movieid'];
+   $userid = $_GET['userid'];
+
+  // $query1 = mysqli_query($conn,"SELECT Subscription FROM Subscribes WHERE User_Id=$userid && Movie_Id=$movieid");
+
+ //  $data = mysqli_fetch_array($query1);
+ //  echo $data[0];
+
+   $query2 = "INSERT INTO Subscribes(Subscription,User_Id,Movie_Id) VALUES (1,'$userid','$movieid')";
+
+    if($conn->query($query2) === TRUE)
+       {
+        echo 'succesful';
+       }
+       else
+       {
+        echo $conn->error;
+        echo 'sorry';
+       }
+   //  }
+    // else
+   //  {
+   //  echo "<script>alert('You Already Subscribed this movie');</script>" ;
+   //  }
+    $query3 = "SELECT * FROM Subscribes, Movies WHERE Subscribes.Movie_Id = Movies.Movieid && User_id=$userid && Subscription=1";
+    $result = $conn->query($query3);
+     if ($result->num_rows > 0) {
+  // output data of each row
+  echo "<h1>Your Subscribed Movie </h1>";
+  while($row = $result->fetch_assoc()) {
+  echo $row['Movie_Title'];
+ echo "<br>";
+  }
+  }
+ $conn->close();
+?>
+<html>
+<head>
+<body style="background-color:black; color:red;">
+</body>
+</head>
+</html>
+

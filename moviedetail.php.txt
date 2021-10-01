@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Details</title>
+    <meta name="viewport" content="width=device-width">
+     <!--  API version 3 documentation:
+        https://developers.themoviedb.org/3/search
+        https://developers.themoviedb.org/3/movies
+        or06FN3Dka5tukK1e9sl16pB3iy.jpg
+        https://image.tmdb.org/t/p/w185/or06FN3Dka5tukK1e9sl16pB3iy.jpg
+        -->
+</head>
+<body style="background-color:black;color:red;">
+  <h1>Marvel Manic</h1>
+    <h2>Title: </h2><h3 id="title"></h3>
+
+    <img src="" alt="Avenger End-Game" id="myimage"/>
+    <!--Poster Path : <div id=" poster"></div> -->
+    <br>
+    <h2>Trailer</h2>
+     <iframe width="560" height="315" src="" id="myvideo" frameborder="0" allowfullscreen></iframe>
+
+    <h2>Overview:</h2><h3 id="overview"></h3>
+    <h2>Release Date:</h2><h3 id="date"></h3>
+    <h2>Vote Average:</h2><h3 id="vote"></h3>
+
+    <script src="./js/key.js"></script>
+    <script>
+
+
+        const queryString = window.location.search;
+        console.log(queryString);
+        const urlParams = new URLSearchParams(queryString);
+        const movieid = urlParams.get('movie_id');
+        const image= urlParams.get('image');
+        const video=urlParams.get('video');
+        console.log(movieid);
+        console.log(image);
+        let baseURL = 'https://api.themoviedb.org/3/';
+        let configData = null;
+	 let baseImageURL = null;
+        let APIKEY = '83792d37b1044596cda563729daeb3b0';
+        let getConfig = function () {
+            let url = "".concat(baseURL, 'configuration?api_key=', APIKEY);
+            fetch(url)
+            .then((result)=>{
+                return result.json();
+            })
+            .then((data)=>{
+                baseImageURL = data.images.secure_base_url;
+                configData = data.images;
+                console.log('config:', data);
+                console.log('config fetched');
+                runSearch();
+            })
+            .catch(function(err){
+                alert(err);
+            });
+        }
+
+        let runSearch = function (keyword) {
+let url = ''.concat(baseURL, 'movie/',movieid,'?api_key=', APIKEY);
+            fetch(url)
+            .then(result=>result.json())
+            .then((data)=>{
+                //process the returned data
+               //const value = {Title:data['title'], Overview:data['overview']};
+
+                document.getElementById('title').innerHTML = JSON.stringify(data['title'], null, 4);
+                document.getElementById('overview').innerHTML = JSON.stringify(data['overview'], null, 4);
+               // document.getElementById('poster').innerHTML = JSON.stringify(data['poster_path'], null, 4);
+                document.getElementById('date').innerHTML = JSON.stringify(data['release_date'], null, 4);
+                document.getElementById('vote').innerHTML = JSON.stringify(data['vote_average'], null, 4);
+                document.getElementById("myvideo").src = "https://www.youtube.com/embed/"+ video;
+                document.getElementById("myimage").src = "https://image.tmdb.org/t/p/w185/" + image;
+                //work with results array...
+
+            })
+        }
+
+        document.addEventListener('DOMContentLoaded', getConfig);
+</script>
+</body>
+</html>
+
+
+

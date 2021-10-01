@@ -1,0 +1,80 @@
+<?php
+session_start();
+include ("functions.php");
+$servername = "localhost";
+$username = "root";
+$password = "Shreyans@123";
+$dbname = "shreyansdb";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+ if($_SERVER['REQUEST_METHOD'] == "POST")
+ {
+   $user_name = trim($_POST['username']);
+   $password = trim($_POST['password']);
+   $name =trim($_POST['name']);
+   $email = trim($_POST['email']);
+
+   if(!empty($user_name) && !empty($password) && !empty($email) && !empty($name))
+   {
+
+        //Generate Random code
+         $pass = substr(md5(uniqid(mt_rand(), true)) , 0, 8);
+        //save to database
+
+        $query2 = "INSERT INTO Users(Email,Password,Name,Username,Code) VALUES ('$email','$password','$name','$user_name','$pass')";
+       if($conn->query($query2) === TRUE)
+       {
+        $to_email = $email;
+        $subject = 'Marvel Manic Verification code';
+        $message= 'Please enter this verification code :' .$pass. ' ';
+        $headers='From:noreply@marvelmanic.com';
+
+        if(mail($to_email,$subject,$message,$headers))
+         {
+               echo "<script>alert('Fill up All the field');</script>";
+                header('Location: reglogin.php');
+                die;
+         }
+        }
+        else
+ {
+           echo "<script>alert('Username already taken');</script>";
+         }
+
+    }
+    else{
+        echo "<script>alert('Fill up All the field');</script>";
+    }
+}
+?>
+<html>
+  <head>
+    <title>Registration</title>
+  </head>
+  <body>
+  <div style="text-align:center">
+<div style="background-color:black"">
+<h1 style="color:red">Marvel Manic</h1>
+<h2 style="color:red">Signup </h3>
+</div>
+ <form method="post" >
+    Name: <input type="text" name="name">
+    <br><br>
+    Email: <input type="email" name="email" >
+    <br><br>
+     Username: <input type="text" name="username" >
+    <br><br>
+    Password: <input type="password" name="password" >
+    <br><br>
+    <input type="submit" value="submit"/ >
+    <br><br>
+
+    <p>
+       Already a member? <a href="login.php">Sign in</a>
+    </p>
+    </form>
+    </div>
+    </body>
+ </html>

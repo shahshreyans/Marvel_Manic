@@ -1,0 +1,95 @@
+<?php
+
+session_start();
+$_SESSION;
+
+include("dbconnect.php");
+include("functions.php");
+$user_data = check_login($con);
+?>
+
+
+<!doctype html
+ <html lang="en">
+ <head>
+  <title> Marvel Manic </title>
+ </head>
+<body style="color:red;background-color:black ">
+  <div style="background-color:black">
+    <h1 style="color:red;text-align:center; ">Marvel Manic &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <a style="color:red;text-decoration:none;text-align:right" href="\
+logout.php">LogOut</a> </h1>
+    <h1 style="color:red;text-align:center; ">Welcome <?php echo $user_data['Name']; ?></h1>
+
+  <!--  <h1 style="color:red;text-align:center;" ><button> <a href="login.php" style="text-decoration:none;color:red;">Login </a></button> &nbsp; &nbsp; &nb\
+sp; &nbsp; <button><a href="registration.html" style="text-decoration:none;color:red;">Registration </a></button>  </h1>
+  -->  </div>
+   <table  style="width:100%;border-collapse: collapse;">
+     <tr style="text-align:center"  >
+       <td style="width:33%; padding:10px 15px 0px 15px ; border:2px solid red;  " >
+         <div>
+           <img style="width:100%; height:300px;" src="avenger.jpg">
+           <h2>Avengers Infinity War</h2>
+            <button><a style="color:red;text-decoration:none;" href="subscribe.php?movieid=1&userid=<?php echo $user_data['User_Id'];?> ">Subscribe</a></but\
+ton>
+           <button><a style="color:red;text-decoration:none;" href="moviedetail.html?movie_id=299536&image=7WsyChQLEftFiDOVTGkv3hFpyyt.jpg&video=LXPaDL_oILs\
+">Know More</a></button>
+
+         </div>
+       </td>
+       <td style="width:33%; padding:10px 15px 0px 15px ; border:2px solid red; "><div>
+           <img style="width:100%;height:300px" src="avenger1.png">
+           <h2>The  Avengers</h2>
+ <button><a style="color:red;text-decoration:none;" href="subscribe.php?movieid=2&userid=<?php echo $user_data['User_Id'];?>">Subscribe</a></butt\
+on>
+           <button><a style="color:red;text-decoration:none;" href="moviedetail.html?movie_id=24428&image=RYMX2wcKCBAr24UyPD7xwmjaTn.jpg&video=eOrNdBpGMv8">\
+Know More</a></button>
+           </div>
+           </td>
+       <td style="width:33%; padding:10px 15px 0px 15px;  border:2px solid red; "><div>
+           <img style="width:100%;height:300px" src="avenger2.jpg">
+           <h2>Avengers End Game</h2>
+            <button><a style="color:red;text-decoration:none;" href="subscribe.php?movieid=3&userid=<?php echo $user_data['User_Id'];?>">Subscribe</a></butt\
+on>
+           <button><a style="color:red;text-decoration:none;" href="moviedetail.html?movie_id=299534&image=or06FN3Dka5tukK1e9sl16pB3iy.jpg&video=AMSITikqKiM\
+">Know More</a></button>
+           </div>
+           </td>
+     </tr>
+     <br><br>
+      <tr style="text-align:center" >
+       <td style="width:33%; padding:10px 15px 0px 15px; border:2px solid red; ">
+         <div>
+           <img style="width:100%; height:300px" src="capamerica.jpg">
+<h2>Captain America</h2>
+            <button><a style="color:red;text-decoration:none;" href="subscribe.php?movieid=4&userid=<?php echo $user_data['User_Id'];?>">Subscribe</a></butt\
+on>
+           <button><a style="color:red;text-decoration:none;" href="moviedetail.html?movie_id=1771&image=vSNxAJTlD0r02V9sPYpOjqDZXUK.jpg&video=W4DlMggBPvc">\
+Know More</a></button>
+         </div>
+       </td>
+       <td style="width:33%; padding:10px 15px 0px 15px; border:2px solid red; "><div>y
+           <img style="width:100%;height:300px" src="capmarvel.jpg">
+           <h2>Captain Marvel</h2>
+            <button><a style="color:red;text-decoration:none;" href="subscribe.php?movieid=5&userid=<?php echo $user_data['User_Id'];?>">Subscribe</a></butt\
+on>
+           <button><a style="color:red;text-decoration:none;" href="moviedetail.html?movie_id=299537&image=AtsgWhDnHTq68L0lLsUrCnM7TjG.jpg&video=jxFJ9h3bv9A\
+">Know More</a></button>
+           </div>
+           </td>
+       <td style="width:33%;  padding:10px 15px 0px 15px ; border:2px solid red; "><div>
+           <img style="width:100%;height:300px" src="iron_man.jpg">
+           <h2>Iron Man</h2>
+            <button><a style="color:red;text-decoration:none;" href="subscribe.php?movieid=6&userid=<?php echo $user_data['User_Id'];?>">Subscribe</a></butt\
+on>
+           <button><a style="color:red;text-decoration:none;" href="moviedetail.html?movie_id=1726&image=78lPtwv72eTNqFW9COBYI0dWDJa.jpg&video=jK2VROKKTSQ">\
+Know More</a></button>
+ </div>
+           </td>
+     </tr>
+
+ </body>
+</html>
+
+
+
+
